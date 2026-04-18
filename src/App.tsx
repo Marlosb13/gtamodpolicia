@@ -164,7 +164,7 @@ export default function App() {
             </span>
 
             <h1 className="font-display text-5xl sm:text-6xl md:text-[76px] leading-[0.9] uppercase mb-6 text-text text-center">
-              APK GTA <span className="text-success">MOD POLÍCIA</span>
+              NOVO GTA <span className="text-success">MOD POLÍCIA</span>
             </h1>
 
             <p className="text-[18px] leading-[1.5] text-muted mb-8 max-w-[600px] text-center">

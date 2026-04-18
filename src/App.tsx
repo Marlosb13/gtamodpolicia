@@ -164,7 +164,7 @@ export default function App() {
             </span>
 
             <h1 className="font-display text-5xl sm:text-6xl md:text-[76px] leading-[0.9] uppercase mb-6 text-text text-center">
-              APK GTA <span className="text-success">MOD POLÍCIA</span> PMSP
+              APK GTA <span className="text-success">MOD POLÍCIA</span>
             </h1>
 
             <p className="text-[18px] leading-[1.5] text-muted mb-8 max-w-[600px] text-center">
@@ -179,7 +179,7 @@ export default function App() {
               onClick={handleSlowScroll}
               className="bg-success text-black py-5 px-6 sm:px-10 font-black text-lg sm:text-xl uppercase rounded-lg text-center inline-block cursor-pointer border-none transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              Baixar Agora - Download Seguro
+              Baixar Agora
             </a>
 
             <div className="flex flex-wrap justify-center gap-4 mt-8 w-full max-w-[600px]">
@@ -232,10 +232,10 @@ export default function App() {
               </div>
 
               <button 
-                className="w-full sm:w-auto bg-[#22c55e] text-black font-display text-2xl uppercase py-4 px-12 rounded-[16px] transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full sm:w-auto bg-[#22c55e] text-black font-display text-xl sm:text-2xl uppercase py-4 px-4 sm:px-12 rounded-[16px] transition-transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
                 onClick={() => window.location.href = 'https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj'}
               >
-                OBTER ACESSO
+                COMPRAR AGORA
               </button>
               
               <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 mt-6 text-muted text-sm font-medium">

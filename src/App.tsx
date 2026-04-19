@@ -182,6 +182,18 @@ export default function App() {
               Baixar Agora
             </a>
 
+            {/* New Section: No Link Shorteners */}
+            <div className="mt-10 p-6 bg-[rgba(255,255,255,0.03)] border-2 border-accent/20 rounded-2xl text-center max-w-[600px] w-full relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-accent/30"></div>
+              <h3 className="font-display text-xl sm:text-2xl text-text uppercase mb-3 leading-tight">
+                CHEGA DE CAIR EM LINK COM ENCURTADOR!
+              </h3>
+              <p className="text-[15px] sm:text-[16px] text-muted leading-relaxed">
+                <span className="font-bold text-text uppercase text-xs mr-2 opacity-70 italic">Papo reto:</span>
+                Cansado de ficar sendo redirecionado mil vezes e nunca chegar no download? A gente resolveu isso pra você. <span className="font-bold">Link direto, sem encurtador, sem enrolação. Baixou, instalou, jogou.</span>
+              </p>
+            </div>
+
             <div className="flex flex-wrap justify-center gap-4 mt-8 w-full max-w-[600px]">
                <div className="text-[12px] font-semibold text-success flex items-center gap-1 uppercase">
                  <CheckCircle2 size={16} /> Anti-Virus Check
@@ -231,12 +243,12 @@ export default function App() {
                 R$ 5,00
               </div>
 
-              <button 
-                className="w-full sm:w-auto bg-[#22c55e] text-black font-display text-xl sm:text-2xl uppercase py-4 px-4 sm:px-12 rounded-[16px] transition-transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
-                onClick={() => window.location.href = 'https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj'}
+              <a 
+                href="https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj"
+                className="w-full sm:w-auto bg-[#22c55e] text-black font-display text-xl sm:text-2xl uppercase py-4 px-4 sm:px-12 rounded-[16px] transition-transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-center inline-block"
               >
                 COMPRAR AGORA
-              </button>
+              </a>
               
               <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 mt-6 text-muted text-sm font-medium">
                 <span className="flex items-center gap-2"><ShieldCheck size={18} className="text-success" /> Checkout Seguro via Pix</span>

@@ -119,6 +119,19 @@ const VSLPlayer = () => {
 };
 
 export default function App() {
+  const [basicCheckoutUrl, setBasicCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj');
+  const [upsellCheckoutUrl, setUpsellCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/0Eii7a4F0EBYa5Ve9MtF');
+  const [showUpsell, setShowUpsell] = React.useState(false);
+
+  React.useEffect(() => {
+    // Preserve URL parameters for UTM tracking
+    const searchParams = window.location.search;
+    if (searchParams) {
+      setBasicCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj${searchParams}`);
+      setUpsellCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/0Eii7a4F0EBYa5Ve9MtF${searchParams}`);
+    }
+  }, []);
+
   const handleSlowScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const target = document.getElementById('oferta');
@@ -244,8 +257,12 @@ export default function App() {
               </div>
 
               <a 
-                href="https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj"
-                className="w-full sm:w-auto bg-[#22c55e] text-black font-display text-xl sm:text-2xl uppercase py-4 px-4 sm:px-12 rounded-[16px] transition-transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-center inline-block"
+                href="#checkout"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowUpsell(true);
+                }}
+                className="w-full sm:w-auto bg-[#22c55e] text-black font-display text-xl sm:text-2xl uppercase py-4 px-4 sm:px-12 rounded-[16px] transition-transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-center inline-block cursor-pointer"
               >
                 COMPRAR AGORA
               </a>
@@ -344,6 +361,71 @@ export default function App() {
         </div>
 
       </div>
+
+      {/* UPSELL MODAL */}
+      {showUpsell && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-[#0f1014] border border-white/10 rounded-2xl w-full max-w-[90vw] sm:max-w-[420px] overflow-hidden relative shadow-2xl flex flex-col animate-in zoom-in-95 duration-300">
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-success to-accent"></div>
+            
+            <div className="p-6 sm:p-8 text-center flex-1 overflow-y-auto max-h-[90vh]">
+              
+              <div className="inline-block bg-accent text-white font-bold px-4 py-1.5 text-xs sm:text-sm uppercase tracking-widest rounded-full mb-5 shadow-[0_0_15px_rgba(30,64,175,0.5)]">
+                OFERTA ESPECIAL
+              </div>
+              
+              <h3 className="font-display text-[26px] sm:text-3xl text-text uppercase mb-2 leading-tight">
+                ESPERE! LEVE A <span className="text-success block mt-1">VERSÃO COMPLETA</span>
+              </h3>
+              
+              <div className="text-[48px] sm:text-[56px] font-display text-text my-5 leading-none">
+                R$ 10
+              </div>
+              
+              <p className="text-sm font-bold text-muted uppercase tracking-wide mb-6 opacity-80">
+                Pagamento único • Acesso vitalício
+              </p>
+              
+              <div className="flex flex-col gap-3 text-left mb-8 text-[14px] sm:text-[15px] text-text/90 font-medium bg-black/30 p-4 rounded-xl border border-white/5">
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={18} className="text-success shrink-0 mt-[1px]" />
+                  <span>Tudo da versão básica</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={18} className="text-success shrink-0 mt-[1px]" />
+                  <span><strong>Atualizações VITALÍCIAS</strong> (não paga nunca mais)</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={18} className="text-success shrink-0 mt-[1px]" />
+                  <span>Versão sem bugs e sem travamentos</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={18} className="text-success shrink-0 mt-[1px]" />
+                  <span>Modo Polícia Avançado liberado</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={18} className="text-success shrink-0 mt-[1px]" />
+                  <span>Mapa totalmente desbloqueado (acesso a tudo)</span>
+                </div>
+              </div>
+
+              <a 
+                href={upsellCheckoutUrl}
+                className="w-full block bg-success text-black font-display text-xl uppercase py-4 rounded-xl transition-transform hover:scale-[1.02] active:scale-[0.98] mb-5 shadow-[0_0_20px_rgba(34,197,94,0.3)]"
+              >
+                QUERO A VERSÃO COMPLETA
+              </a>
+              
+              <a 
+                href={basicCheckoutUrl}
+                className="block text-muted text-sm border-b border-transparent hover:border-white/20 transition-colors w-fit mx-auto pb-0.5 opacity-70 hover:opacity-100"
+              >
+                Não, quero o básico por 5 reais
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

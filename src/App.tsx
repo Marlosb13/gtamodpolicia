@@ -121,7 +121,9 @@ const VSLPlayer = () => {
 export default function App() {
   const [basicCheckoutUrl, setBasicCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj');
   const [upsellCheckoutUrl, setUpsellCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/0Eii7a4F0EBYa5Ve9MtF');
+  const [downsellCheckoutUrl, setDownsellCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/0SY9xaashgMSGX10QkZd');
   const [showUpsell, setShowUpsell] = React.useState(false);
+  const [showDownsell, setShowDownsell] = React.useState(false);
 
   React.useEffect(() => {
     // Preserve URL parameters for UTM tracking
@@ -129,6 +131,7 @@ export default function App() {
     if (searchParams) {
       setBasicCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj${searchParams}`);
       setUpsellCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/0Eii7a4F0EBYa5Ve9MtF${searchParams}`);
+      setDownsellCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/0SY9xaashgMSGX10QkZd${searchParams}`);
     }
   }, []);
 
@@ -177,11 +180,11 @@ export default function App() {
             </span>
 
             <h1 className="font-display text-5xl sm:text-6xl md:text-[76px] leading-[0.9] uppercase mb-6 text-text text-center">
-              NOVO GTA <span className="text-success">MOD POLÍCIA</span>
+              GTA 2026 <span className="text-success">MOD POLÍCIA</span>
             </h1>
 
             <p className="text-[18px] leading-[1.5] text-muted mb-8 max-w-[600px] text-center">
-              O melhor mod de simulação policial para Android. Finalmente um mod que NÃO CRACHA! Instalação rápida, compatível com a nova geração de celulares (todos os Androids) e acesso imediato.
+              O único mod policial para Android que realmente funciona. Compatível com Android 12 ao 16, instalação sem complicação e acesso na hora sem encurtador, sem enrolação
             </p>
 
             {/* Video VSL Custom VORTEX */}
@@ -416,11 +419,58 @@ export default function App() {
                 QUERO A VERSÃO COMPLETA
               </a>
               
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowUpsell(false);
+                  setShowDownsell(true);
+                }}
+                className="block text-muted text-sm border-b border-transparent hover:border-white/20 transition-colors w-fit mx-auto pb-0.5 opacity-70 hover:opacity-100 cursor-pointer bg-transparent"
+              >
+                Não, quero o básico por 5 reais
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DOWNSELL MODAL */}
+      {showDownsell && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-[#0f1014] border border-white/10 rounded-2xl w-full max-w-[90vw] sm:max-w-[420px] overflow-hidden relative shadow-2xl flex flex-col animate-in zoom-in-95 duration-300">
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-yellow-500 to-yellow-600"></div>
+            
+            <div className="p-6 sm:p-8 text-center flex-1 overflow-y-auto max-h-[90vh]">
+              
+              <div className="inline-block bg-yellow-500 text-black font-bold px-4 py-1.5 text-xs sm:text-sm uppercase tracking-widest rounded-full mb-5 shadow-[0_0_15px_rgba(234,179,8,0.4)]">
+                ÚLTIMA CHANCE
+              </div>
+              
+              <h3 className="font-display text-[22px] sm:text-[26px] text-text uppercase mb-4 leading-tight">
+                Calma aí… é sério que não quer o completo?
+              </h3>
+
+              <div className="bg-black/40 border border-yellow-500/20 rounded-xl p-5 mb-6">
+                <p className="text-[15px] sm:text-base text-text/90 mb-3">
+                  Tá, toma aí um <strong className="text-yellow-400">desconto</strong>. Você vai levar tudo da versão completa que era <span className="line-through text-yellow-400 font-bold opacity-80">R$ 10</span> por
+                </p>
+                <div className="text-[56px] sm:text-[64px] font-display text-yellow-500 leading-none drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]">
+                  R$ 7,50
+                </div>
+              </div>
+
+              <a 
+                href={downsellCheckoutUrl}
+                className="w-full block bg-yellow-500 text-black font-display text-xl uppercase py-4 rounded-xl transition-transform hover:scale-[1.02] active:scale-[0.98] mb-5 shadow-[0_0_20px_rgba(234,179,8,0.3)]"
+              >
+                QUERO O DESCONTO
+              </a>
+              
               <a 
                 href={basicCheckoutUrl}
                 className="block text-muted text-sm border-b border-transparent hover:border-white/20 transition-colors w-fit mx-auto pb-0.5 opacity-70 hover:opacity-100"
               >
-                Não, quero o básico por 5 reais
+                Não, quero só o básico por R$ 5,00
               </a>
             </div>
           </div>

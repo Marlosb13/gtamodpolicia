@@ -236,26 +236,26 @@ export default function App() {
 
           {/* Offer / Purchase Section */}
           <section id="oferta" className="mt-8 mb-16">
-            <div className="bg-[#0a0a0a] border-[3px] border-accent rounded-3xl p-8 flex flex-col items-center relative overflow-hidden">
+            <div className="bg-[#0a0a0a] border-[3px] border-accent rounded-3xl p-5 sm:p-8 flex flex-col items-center relative overflow-hidden">
               
-              <div className="border-[2px] border-accent/40 rounded-xl p-2 mb-6 text-accent inline-block">
+              <div className="border-[2px] border-accent/40 rounded-xl p-1.5 sm:p-2 mb-3 sm:mb-6 text-accent inline-block">
                 <AlertOctagon size={28} />
               </div>
               
-              <h2 className="font-display text-5xl sm:text-[64px] leading-none uppercase tracking-tight mb-6 text-text text-center">
+              <h2 className="font-display text-5xl sm:text-[64px] leading-none uppercase tracking-tight mb-3 sm:mb-6 text-text text-center">
                 ACESSO<br/>EXCLUSIVO
               </h2>
               
-              <h3 className="font-display text-2xl mb-6 text-success text-center uppercase">
+              <h3 className="font-display text-2xl mb-3 sm:mb-6 text-success text-center uppercase">
                 PACOTE COMPLETO: APK +<br/>OBB + DATA
               </h3>
               
-              <p className="text-muted mb-8 text-base leading-relaxed text-center max-w-sm">
-                Acesso garantido a futuras atualizações sem cobranças adicionais.<br/><br/>
-                <span className="font-bold text-text">Pagamento Único • Acesso Vitalício</span>
+              <p className="text-muted mb-4 sm:mb-8 text-base leading-relaxed text-center max-w-sm">
+                Acesso garantido a futuras atualizações sem cobranças adicionais.
+                <span className="block mt-2 sm:mt-4 font-bold text-text">Pagamento Único • Acesso Vitalício</span>
               </p>
 
-              <div className="text-[72px] sm:text-[96px] font-display text-text leading-none mb-6">
+              <div className="text-[72px] sm:text-[96px] font-display text-text leading-none mb-4 sm:mb-6">
                 R$ 5,00
               </div>
 
@@ -265,12 +265,12 @@ export default function App() {
                   e.preventDefault();
                   setShowUpsell(true);
                 }}
-                className="w-full sm:w-auto bg-[#22c55e] text-black font-display text-xl sm:text-2xl uppercase py-4 px-4 sm:px-12 rounded-[16px] transition-transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-center inline-block cursor-pointer"
+                className="w-full sm:w-auto bg-[#22c55e] text-black font-display text-xl sm:text-2xl uppercase py-3 sm:py-4 px-4 sm:px-12 rounded-[16px] transition-transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap text-center inline-block cursor-pointer"
               >
                 COMPRAR AGORA
               </a>
               
-              <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 mt-6 text-muted text-sm font-medium">
+              <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mt-4 sm:mt-6 text-muted text-sm font-medium">
                 <span className="flex items-center gap-2"><ShieldCheck size={18} className="text-success" /> Checkout Seguro via Pix</span>
                 <span className="hidden sm:inline text-white/20">•</span>
                 <span className="flex items-center gap-2"><Star size={18} className="text-yellow-400" /> Garantia de 7 Dias</span>

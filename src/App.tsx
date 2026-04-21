@@ -234,6 +234,33 @@ export default function App() {
             </div>
           </div>
 
+          {/* Testimonials moved here */}
+          <div className="w-full flex flex-col items-center mb-6">
+            <h2 className="font-display text-4xl uppercase text-center text-text">O Que a Galera Tá Falando</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 w-full mb-12">
+            {testimonials.map((testimonial, idx) => (
+              <div key={idx} className="bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] p-5 rounded-xl">
+                <div className="flex items-center gap-3 mb-3">
+                  <img 
+                    src={testimonial.avatar} 
+                    alt={testimonial.name} 
+                    className="w-10 h-10 rounded-full object-cover" 
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div>
+                    <div className="font-bold text-[14px] text-accent">{testimonial.name}</div>
+                  </div>
+                </div>
+                <p className="text-[14px] text-text leading-[1.5] italic">
+                  "{testimonial.text}"
+                </p>
+              </div>
+            ))}
+          </div>
+
           {/* Offer / Purchase Section */}
           <section id="oferta" className="mt-8 mb-16">
             <div className="bg-[#0a0a0a] border-[3px] border-accent rounded-3xl p-5 sm:p-8 flex flex-col items-center relative overflow-hidden">
@@ -252,7 +279,8 @@ export default function App() {
               
               <p className="text-muted mb-4 sm:mb-8 text-base leading-relaxed text-center max-w-sm">
                 Acesso garantido a futuras atualizações sem cobranças adicionais.
-                <span className="block mt-2 sm:mt-4 font-bold text-text">Pagamento Único • Acesso Vitalício</span>
+                <span className="block mt-2 sm:mt-4 font-bold text-text uppercase text-xs sm:text-sm tracking-wide">Pagamento Único • Acesso Vitalício</span>
+                <span className="block mt-1 text-success font-bold text-sm uppercase italic">Receba tudo no seu e-mail</span>
               </p>
 
               <div className="text-[72px] sm:text-[96px] font-display text-text leading-none mb-4 sm:mb-6">
@@ -277,43 +305,6 @@ export default function App() {
               </div>
             </div>
           </section>
-
-          {/* Testimonials SECTION */}
-          <div className="mb-20 w-full flex flex-col items-center">
-            <h2 className="font-display text-4xl uppercase mb-4 text-center text-text">O Que a Galera Tá Falando</h2>
-            
-            <div className="flex items-center justify-center gap-1 text-yellow-400 mb-8">
-              <Star size={20} fill="currentColor" />
-              <Star size={20} fill="currentColor" />
-              <Star size={20} fill="currentColor" />
-              <Star size={20} fill="currentColor" />
-              <Star size={20} fill="currentColor" />
-              <span className="text-text ml-2 font-bold text-base">4.9/5 Estrelas</span>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-4 w-full">
-              {testimonials.map((testimonial, idx) => (
-                <div key={idx} className="bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] p-5 rounded-xl">
-                  <div className="flex items-center gap-3 mb-3">
-                    <img 
-                    src={testimonial.avatar} 
-                    alt={testimonial.name} 
-                    className="w-10 h-10 rounded-full object-cover" 
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                    <div>
-                      <div className="font-bold text-[14px] text-accent">{testimonial.name}</div>
-                    </div>
-                  </div>
-                  <p className="text-[14px] text-text leading-[1.5] italic">
-                    "{testimonial.text}"
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
 
           {/* FAQ SECTION */}
           <div className="pt-10 border-t border-white/10 w-full">
@@ -385,8 +376,12 @@ export default function App() {
                 R$ 10
               </div>
               
-              <p className="text-sm font-bold text-muted uppercase tracking-wide mb-6 opacity-80">
+              <p className="text-sm font-bold text-muted uppercase tracking-wide mb-1 opacity-80">
                 Pagamento único • Acesso vitalício
+              </p>
+
+              <p className="text-sm font-bold text-success uppercase italic mb-6">
+                Receba tudo no seu e-mail
               </p>
               
               <div className="flex flex-col gap-3 text-left mb-8 text-[14px] sm:text-[15px] text-text/90 font-medium bg-black/30 p-4 rounded-xl border border-white/5">
@@ -457,6 +452,9 @@ export default function App() {
                 <div className="text-[56px] sm:text-[64px] font-display text-yellow-500 leading-none drop-shadow-[0_0_15px_rgba(234,179,8,0.3)]">
                   R$ 7,50
                 </div>
+                <p className="text-sm font-bold text-success uppercase italic mt-4">
+                  Receba tudo no seu e-mail
+                </p>
               </div>
 
               <a 

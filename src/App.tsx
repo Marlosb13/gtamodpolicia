@@ -3,29 +3,29 @@ import { ShieldCheck, Star, Smartphone, CheckCircle2, Zap, AlertOctagon, Chevron
 
 const testimonials = [
   {
-    name: "@Alex-gv3ei",
+    name: "@alex.silva",
     avatar: "https://i.postimg.cc/Kv3qnXzh/vic.webp",
-    text: "Tô jogando no poco x5 pro, deu certo aqui valeu msm mano, mais 1 inscrito e ganhou meu like ❤️👊"
+    text: "Tô jogando no Poco X5 Pro, deu certo aqui, valeu mesmo mano 👊"
   },
   {
-    name: "@CPX_FAVELA",
+    name: "@cpx.favela",
     avatar: "https://i.postimg.cc/SsKVR357/icon-masculino.webp",
-    text: "O melhor de todos slk mn sem explicação, eu tava numa vontade de joga gta san ass"
+    text: "O melhor que achei até agora, tava doido pra jogar esse modo polícia"
   },
   {
-    name: "@neymarzinho-q6m",
+    name: "@neymarzin_7",
     avatar: "https://i.postimg.cc/Gt8QJYbj/gui.webp",
-    text: "Passando aqui pra dizer que deu certo no meu Android 14, muito obrigado irmão"
+    text: "Passando pra dizer que funcionou no meu Android 14, instalação foi tranquila"
   },
   {
-    name: "@verton_react",
+    name: "@verton.react",
     avatar: "https://i.postimg.cc/Xvsmsf6g/𝕹𝖔𝖛𝖎𝖓𝖍𝖔.webp",
-    text: "Valeu cara o seu foi o único que pegou no Android 15"
+    text: "Foi o único que pegou no Android 15 aqui, valeu demais"
   },
   {
-    name: "@Alan_haland",
+    name: "@alan.haland",
     avatar: "https://i.postimg.cc/SsKVR357/icon-masculino.webp",
-    text: "Top de mais e a minha primeira vez jogando gta modo policia cara muito obrigado Deus abençoe"
+    text: "Primeira vez jogando modo polícia, curti muito mesmo 🔥"
   }
 ];
 
@@ -184,7 +184,7 @@ export default function App() {
             </h1>
 
             <p className="text-[18px] leading-[1.5] text-muted mb-8 max-w-[600px] text-center">
-              O único mod policial para Android que realmente funciona. Compatível com Android 12 ao 16, instalação sem complicação e acesso na hora sem encurtador, sem enrolação
+              Compatível no Android 12 ao 16, instalação facil com turorial e passo passo para instalar, e acesso na hora sem encurtador, sem enrolação
             </p>
 
             {/* Video VSL Custom VORTEX */}
@@ -195,8 +195,35 @@ export default function App() {
               onClick={handleSlowScroll}
               className="bg-success text-black py-5 px-6 sm:px-10 font-black text-lg sm:text-xl uppercase rounded-lg text-center inline-block cursor-pointer border-none transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              Baixar Agora
+              GARANTA O SEU AGORA
             </a>
+
+            {/* What you get list */}
+            <div className="mt-8 bg-[rgba(255,255,255,0.05)] border border-white/10 p-5 rounded-2xl w-full max-w-[400px] mx-auto flex flex-col">
+              <h3 className="text-md font-bold text-text mb-4 text-center uppercase tracking-wider">O QUE VOCÊ VAI RECEBER:</h3>
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-3 text-muted text-sm leading-relaxed font-medium">
+                  <CheckCircle2 size={18} className="text-success shrink-0" />
+                  <span>APK do jogo</span>
+                </div>
+                <div className="flex items-center gap-3 text-muted text-sm leading-relaxed font-medium">
+                  <CheckCircle2 size={18} className="text-success shrink-0" />
+                  <span>OBB + DATA completos</span>
+                </div>
+                <div className="flex items-center gap-3 text-muted text-sm leading-relaxed font-medium">
+                  <CheckCircle2 size={18} className="text-success shrink-0" />
+                  <span>Tutorial passo a passo</span>
+                </div>
+                <div className="flex items-center gap-3 text-muted text-sm leading-relaxed font-medium">
+                  <CheckCircle2 size={18} className="text-success shrink-0" />
+                  <span>Acesso imediato</span>
+                </div>
+                <div className="flex items-center gap-3 text-muted text-sm leading-relaxed font-medium">
+                  <CheckCircle2 size={18} className="text-success shrink-0" />
+                  <span>Atualizações inclusas</span>
+                </div>
+              </div>
+            </div>
 
             {/* New Section: No Link Shorteners */}
             <div className="mt-10 p-6 bg-[rgba(255,255,255,0.03)] border-2 border-accent/20 rounded-2xl text-center max-w-[600px] w-full relative overflow-hidden">
@@ -208,29 +235,6 @@ export default function App() {
                 <span className="font-bold text-text uppercase text-xs mr-2 opacity-70 italic">Papo reto:</span>
                 Cansado de ficar sendo redirecionado mil vezes e nunca chegar no download? A gente resolveu isso pra você. <span className="font-bold">Link direto, sem encurtador, sem enrolação. Baixou, instalou, jogou.</span>
               </p>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4 mt-8 w-full max-w-[600px]">
-               <div className="text-[12px] font-semibold text-success flex items-center gap-1 uppercase">
-                 <CheckCircle2 size={16} /> Anti-Virus Check
-               </div>
-               <div className="text-[12px] font-semibold text-success flex items-center gap-1 uppercase">
-                 <CheckCircle2 size={16} /> Instalação Fácil
-               </div>
-            </div>
-          </div>
-
-          <h3 className="mb-[10px] text-[14px] uppercase text-muted font-bold tracking-wider text-center w-full">O que o pacote inclui:</h3>
-          <div className="grid sm:grid-cols-2 gap-4 mb-12">
-            <div className="bg-[rgba(255,255,255,0.05)] border border-white/10 p-5 rounded-2xl flex flex-col items-center text-center">
-              <Smartphone size={24} className="text-accent mb-3" />
-              <h3 className="text-md font-bold text-text mb-2">Para Todos Androids</h3>
-              <p className="text-muted text-sm leading-relaxed">Testado e funcionando perfeitamente do Android 12 ao 16.</p>
-            </div>
-            <div className="bg-[rgba(255,255,255,0.05)] border border-white/10 p-5 rounded-2xl flex flex-col items-center text-center">
-              <Zap size={24} className="text-accent mb-3" />
-              <h3 className="text-md font-bold text-text mb-2">Acesso Imediato</h3>
-              <p className="text-muted text-sm leading-relaxed">Links diretos. Arquivos limpos OBB, DATA e APK oficiais.</p>
             </div>
           </div>
 
@@ -299,7 +303,7 @@ export default function App() {
               </a>
               
               <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mt-4 sm:mt-6 text-muted text-sm font-medium">
-                <span className="flex items-center gap-2"><ShieldCheck size={18} className="text-success" /> Checkout Seguro via Pix</span>
+                <span className="flex items-center gap-2"><ShieldCheck size={18} className="text-success" /> Pagamento seguro</span>
                 <span className="hidden sm:inline text-white/20">•</span>
                 <span className="flex items-center gap-2"><Star size={18} className="text-yellow-400" /> Garantia de 7 Dias</span>
               </div>
@@ -312,41 +316,41 @@ export default function App() {
             <div className="flex flex-col gap-4">
               <details className="bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-xl p-5 cursor-pointer group">
                 <summary className="font-bold text-base list-none flex justify-between items-center text-text">
-                  Quais celulares o jogo roda? (Android 14+)
+                  Funciona no meu celular?
                   <ChevronDown size={20} className="text-accent group-open:rotate-180 transition-transform" />
                 </summary>
                 <div className="mt-4 text-muted text-sm leading-relaxed">
-                   Sim! Nós testamos o mod nas versões 12, 13, 14, 15 e no novo Android 16. O jogo roda lisinho em aparelhos da Xiaomi (Linha Poco, Redmi), Samsung Galaxy (A, M e S), Motorola e diversas outras marcas, cobrindo praticamente todos os celulares modernos, com a obb ajustada para não dar o erro de tela preta ou "apk incompatível".
+                  Funciona na maioria dos Androids do 12 ao 16 (Xiaomi, Samsung, Motorola e outros).
                 </div>
               </details>
               
               <details className="bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-xl p-5 cursor-pointer group">
                 <summary className="font-bold text-base list-none flex justify-between items-center text-text">
-                  É seguro baixar? Tem vírus?
+                  É seguro? Tem vírus?
                   <ChevronDown size={20} className="text-accent group-open:rotate-180 transition-transform" />
                 </summary>
                 <div className="mt-4 text-muted text-sm leading-relaxed">
-                  É 100% livre de vírus. Os arquivos passam por uma checagem rigorosa de segurança. Além disso, nós não usamos encurtadores cheios de anúncios na página de entrega, o download é rápido e direto.
+                  Não. Arquivos verificados e sem vírus. Download direto, sem encurtador.
                 </div>
               </details>
 
               <details className="bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-xl p-5 cursor-pointer group">
                 <summary className="font-bold text-base list-none flex justify-between items-center text-text">
-                  Por onde recebo o acesso ao mod?
+                  Como recebo o acesso?
                   <ChevronDown size={20} className="text-accent group-open:rotate-180 transition-transform" />
                 </summary>
                 <div className="mt-4 text-muted text-sm leading-relaxed">
-                  Logo após a confirmação do pagamento, você receberá o link de download direto e o tutorial passo a passo diretamente no seu <strong>e-mail</strong> cadastrado na hora da compra. Se pagar via Pix, o acesso é enviado imediatamente!
+                  Após o pagamento, você recebe tudo no seu e-mail imediatamente, com o tutorial incluso.
                 </div>
               </details>
 
               <details className="bg-[rgba(255,255,255,0.05)] border border-white/10 rounded-xl p-5 cursor-pointer group">
                 <summary className="font-bold text-base list-none flex justify-between items-center text-text">
-                  O produto tem garantia se não funcionar?
+                  E se não funcionar? Tem garantia?
                   <ChevronDown size={20} className="text-accent group-open:rotate-180 transition-transform" />
                 </summary>
                 <div className="mt-4 text-muted text-sm leading-relaxed">
-                  Com certeza! Seu risco é zero. Nós oferecemos <strong>7 dias de garantia incondicional</strong>. Se o mod não rodar no seu celular, basta mandar um e-mail pra gente que devolvemos 100% do valor do seu Pix de forma rápida e sem qualquer burocracia.
+                  Sim. Você tem 7 dias de garantia para testar com tranquilidade. Você tem 7 dias de garantia. Se não rodar, pode pedir reembolso.
                 </div>
               </details>
             </div>

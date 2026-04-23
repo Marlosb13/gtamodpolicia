@@ -96,13 +96,13 @@ const SalesNotification = () => {
           initial={{ opacity: 0, x: -20, y: 0 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="fixed bottom-[100px] left-5 z-[1000] bg-[#1a1b23] border border-white/10 p-4 rounded-xl shadow-2xl flex flex-col max-w-[260px] w-full"
+          className="fixed bottom-[100px] left-4 z-[1000] bg-[#1a1b23]/95 backdrop-blur-sm border border-white/10 px-3 py-2 rounded-lg shadow-2xl flex flex-col max-w-[180px] sm:max-w-[200px]"
         >
           <div className="flex flex-col min-w-0">
-            <span className="text-[14px] font-bold text-text truncate">
+            <span className="text-[12px] font-bold text-text truncate">
               {currentName} acabou de comprar
             </span>
-            <span className="text-[12px] text-success font-semibold">
+            <span className="text-[10.5px] text-success font-semibold">
               GTA Versão Completa
             </span>
           </div>

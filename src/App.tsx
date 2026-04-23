@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ShieldCheck, Star, Smartphone, CheckCircle2, Zap, AlertOctagon, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 const testimonials = [
   {
@@ -28,6 +29,71 @@ const testimonials = [
     text: "Primeira vez jogando modo polícia, curti muito mesmo 🔥"
   }
 ];
+
+const BRAZILIAN_NAMES = [
+  "Lucas", "Gabriel", "Matheus", "Felipe", "Guilherme", "Pedro", "João", "Gustavo", 
+  "Vinicius", "Rodrigo", "Thiago", "Bruno", "Rafael", "Daniel", "Leonardo", 
+  "Marcelo", "André", "Paulo", "Ricardo", "Fernando", "Samuel", "Vitor", 
+  "Igor", "Caio", "Murilo", "Arthur", "Davi", "Enzo", "Bernardo", "Heitor", 
+  "Nicolas", "Otávio", "Henrique", "Renan", "Diego"
+];
+
+const SalesNotification = () => {
+  const [currentName, setCurrentName] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+    let lastGeneratedIndex = -1;
+
+    const showNext = () => {
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * BRAZILIAN_NAMES.length);
+      } while (randomIndex === lastGeneratedIndex);
+
+      lastGeneratedIndex = randomIndex;
+      setCurrentName(BRAZILIAN_NAMES[randomIndex]);
+      setVisible(true);
+
+      // Hide after 5 seconds
+      timeout = setTimeout(() => {
+        setVisible(false);
+        
+        // Schedule next one after 15-20 seconds
+        const interval = Math.floor(Math.random() * 5000) + 15000;
+        timeout = setTimeout(showNext, interval);
+      }, 5000);
+    };
+
+    // First one after 8 seconds
+    timeout = setTimeout(showNext, 8000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ opacity: 0, x: -20, y: 0 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          className="fixed bottom-[100px] left-5 z-[1000] bg-[#1a1b23] border border-white/10 p-4 rounded-xl shadow-2xl flex flex-col max-w-[260px] w-full"
+        >
+          <div className="flex flex-col min-w-0">
+            <span className="text-[14px] font-bold text-text truncate">
+              {currentName} acabou de comprar
+            </span>
+            <span className="text-[12px] text-success font-semibold">
+              GTA Versão Completa
+            </span>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
 
 const VSLPlayer = () => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
@@ -168,6 +234,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-bg text-text font-body selection:bg-accent selection:text-white pb-20">
+      <SalesNotification />
       
       <div className="max-w-[800px] mx-auto p-6 md:p-10 flex flex-col gap-10">
         

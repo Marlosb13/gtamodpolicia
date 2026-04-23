@@ -268,7 +268,7 @@ export default function App() {
             </h1>
 
             <p className="text-[18px] leading-[1.5] text-muted mb-8 max-w-[600px] text-center">
-              Compatível no Android 12 ao 16, instalação facil com turorial e passo passo para instalar, e acesso na hora sem encurtador, sem enrolação
+              Compatível no Android 12 ao 15, instalação facil com turorial e passo passo para instalar, e acesso na hora sem encurtador, sem enrolação
             </p>
 
             {/* Video VSL Custom VORTEX */}
@@ -404,7 +404,7 @@ export default function App() {
                   <ChevronDown size={20} className="text-accent group-open:rotate-180 transition-transform" />
                 </summary>
                 <div className="mt-4 text-muted text-sm leading-relaxed">
-                  Funciona na maioria dos Androids do 12 ao 16 (Xiaomi, Samsung, Motorola e outros).
+                  Funciona na maioria dos Androids do 12 ao 15 (Xiaomi, Samsung, Motorola e outros).
                 </div>
               </details>
               

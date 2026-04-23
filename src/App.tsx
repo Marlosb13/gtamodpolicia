@@ -35,7 +35,10 @@ const BRAZILIAN_NAMES = [
   "Vinicius", "Rodrigo", "Thiago", "Bruno", "Rafael", "Daniel", "Leonardo", 
   "Marcelo", "André", "Paulo", "Ricardo", "Fernando", "Samuel", "Vitor", 
   "Igor", "Caio", "Murilo", "Arthur", "Davi", "Enzo", "Bernardo", "Heitor", 
-  "Nicolas", "Otávio", "Henrique", "Renan", "Diego"
+  "Nicolas", "Otávio", "Henrique", "Renan", "Diego", "Hugo", "Ítalo", "Jander",
+  "Kléber", "Luiz", "Márcio", "Nildo", "Osvaldo", "Patrick", "Quirino", "Raul",
+  "Sérgio", "Túlio", "Uriel", "Valter", "Wagner", "Xavier", "Yuri", "Zeca",
+  "Adriano", "Beto", "Cássio", "Douglas", "Elias", "Fabiano", "Geraldo"
 ];
 
 const SalesNotification = () => {
@@ -44,16 +47,30 @@ const SalesNotification = () => {
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
-    let lastGeneratedIndex = -1;
+    let shuffledIndices: number[] = [];
+    let currentIndex = 0;
+
+    const shuffle = (array: number[]) => {
+      const newArray = [...array];
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    };
+
+    const getNextName = () => {
+      if (currentIndex >= shuffledIndices.length) {
+        shuffledIndices = shuffle(BRAZILIAN_NAMES.map((_, i) => i));
+        currentIndex = 0;
+      }
+      const name = BRAZILIAN_NAMES[shuffledIndices[currentIndex]];
+      currentIndex++;
+      return name;
+    };
 
     const showNext = () => {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * BRAZILIAN_NAMES.length);
-      } while (randomIndex === lastGeneratedIndex);
-
-      lastGeneratedIndex = randomIndex;
-      setCurrentName(BRAZILIAN_NAMES[randomIndex]);
+      setCurrentName(getNextName());
       setVisible(true);
 
       // Hide after 5 seconds

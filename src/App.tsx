@@ -20,6 +20,13 @@ const TestimonialsSlider = () => {
     setCurrentIndex((prev) => (prev - 1 + IMAGE_TESTIMONIALS.length) % IMAGE_TESTIMONIALS.length);
   };
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % IMAGE_TESTIMONIALS.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="w-full relative flex items-center justify-center mb-10 overflow-hidden">
       <div className="w-full max-w-[800px] flex flex-col items-center relative">

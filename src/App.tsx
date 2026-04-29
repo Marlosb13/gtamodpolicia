@@ -32,16 +32,16 @@ const TestimonialsSlider = () => {
       <div className="w-full max-w-[800px] flex flex-col items-center relative">
         <h2 className="font-display text-4xl uppercase text-center text-text mb-6">O Que a Galera Tá Falando</h2>
         
-        <div className="relative flex items-center justify-center w-full px-12 sm:px-16">
+        <div className="relative flex items-center justify-center w-full max-w-[800px] mx-auto">
           <button 
             onClick={prevSlide}
-            className="absolute left-0 z-10 bg-[#1a1b23] border border-white/10 hover:bg-white/10 text-white p-3 rounded-full transition-all shadow-xl"
+            className="absolute left-0 sm:left-4 z-10 text-white/40 hover:text-white/80 p-2 transition-all drop-shadow-md"
             aria-label="Anterior"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={48} strokeWidth={1.5} />
           </button>
 
-          <div className="w-[70%] max-w-[560px] overflow-hidden rounded-xl border border-white/5 relative">
+          <div className="w-[75vw] md:w-[560px] overflow-hidden rounded-xl border border-white/5 relative">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -51,7 +51,7 @@ const TestimonialsSlider = () => {
                   key={idx}
                   src={img} 
                   alt={`Depoimento ${idx + 1}`} 
-                  className="w-full shrink-0 h-auto object-contain" 
+                  className="w-full shrink-0 h-auto object-contain rounded-xl" 
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   decoding="async"
@@ -62,10 +62,10 @@ const TestimonialsSlider = () => {
 
           <button 
             onClick={nextSlide}
-            className="absolute right-0 z-10 bg-[#1a1b23] border border-white/10 hover:bg-white/10 text-white p-3 rounded-full transition-all shadow-xl"
+            className="absolute right-0 sm:right-4 z-10 text-white/40 hover:text-white/80 p-2 transition-all drop-shadow-md"
             aria-label="Próximo"
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={48} strokeWidth={1.5} />
           </button>
         </div>
       </div>

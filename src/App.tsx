@@ -302,9 +302,9 @@ export default function App() {
           </div>
 
           {/* Testimonials */}
-          <div className="w-[70%] max-w-[600px] mx-auto flex flex-col items-center mb-6">
+          <div className="w-full max-w-[800px] mx-auto flex flex-col items-center mb-10 overflow-hidden">
             <h2 className="font-display text-4xl uppercase text-center text-text mb-6">O Que a Galera Tá Falando</h2>
-            <div className="w-full overflow-hidden relative rounded-xl mask-image-fade">
+            <div className="w-full relative">
               <style>
                 {`
                   @keyframes scroll-x {
@@ -320,10 +320,6 @@ export default function App() {
                   .carousel-track:hover {
                     animation-play-state: paused;
                   }
-                  .mask-image-fade {
-                    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-                    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-                  }
                 `}
               </style>
               <div className="carousel-track">
@@ -333,7 +329,7 @@ export default function App() {
                     key={idx}
                     src={img} 
                     alt={`Depoimento ${idx + 1}`} 
-                    className="w-[220px] sm:w-[280px] h-auto object-contain rounded-xl opacity-90 transition-opacity hover:opacity-100 border border-white/5" 
+                    className="w-[70vw] md:w-[560px] h-auto object-contain rounded-xl border border-white/5" 
                     referrerPolicy="no-referrer"
                     loading="lazy"
                     decoding="async"

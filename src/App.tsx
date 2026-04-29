@@ -2,32 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { ShieldCheck, Star, Smartphone, CheckCircle2, Zap, AlertOctagon, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-const testimonials = [
-  {
-    name: "@alex.silva",
-    avatar: "https://i.postimg.cc/Kv3qnXzh/vic.webp",
-    text: "Tô jogando no Poco X5 Pro, deu certo aqui, valeu mesmo mano 👊"
-  },
-  {
-    name: "@cpx.favela",
-    avatar: "https://i.postimg.cc/SsKVR357/icon-masculino.webp",
-    text: "O melhor que achei até agora, tava doido pra jogar esse modo polícia"
-  },
-  {
-    name: "@neymarzin_7",
-    avatar: "https://i.postimg.cc/Gt8QJYbj/gui.webp",
-    text: "Passando pra dizer que funcionou no meu Android 14, instalação foi tranquila"
-  },
-  {
-    name: "@verton.react",
-    avatar: "https://i.postimg.cc/Xvsmsf6g/𝕹𝖔𝖛𝖎𝖓𝖍𝖔.webp",
-    text: "Foi o único que pegou no Android 15 aqui, valeu demais"
-  },
-  {
-    name: "@alan.haland",
-    avatar: "https://i.postimg.cc/SsKVR357/icon-masculino.webp",
-    text: "Primeira vez jogando modo polícia, curti muito mesmo 🔥"
-  }
+const IMAGE_TESTIMONIALS = [
+  "https://i.postimg.cc/gjgM5Cmh/Whats-App-Image-2026-04-28-at-20-49-53-(1).jpg",
+  "https://i.postimg.cc/K860drS9/Whats-App-Image-2026-04-28-at-20-49-54-(1).jpg",
+  "https://i.postimg.cc/4dZB3f39/Whats-App-Image-2026-04-28-at-20-49-54.jpg",
+  "https://i.postimg.cc/gkBSKbgt/Whats-App-Image-2026-04-28-at-20-49-53.jpg"
 ];
 
 const BRAZILIAN_NAMES = [
@@ -322,31 +301,46 @@ export default function App() {
             </div>
           </div>
 
-          {/* Testimonials moved here */}
-          <div className="w-full flex flex-col items-center mb-6">
-            <h2 className="font-display text-4xl uppercase text-center text-text">O Que a Galera Tá Falando</h2>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4 w-full mb-12">
-            {testimonials.map((testimonial, idx) => (
-              <div key={idx} className="bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] p-5 rounded-xl">
-                <div className="flex items-center gap-3 mb-3">
+          {/* Testimonials */}
+          <div className="w-[70%] max-w-[600px] mx-auto flex flex-col items-center mb-6">
+            <h2 className="font-display text-4xl uppercase text-center text-text mb-6">O Que a Galera Tá Falando</h2>
+            <div className="w-full overflow-hidden relative rounded-xl mask-image-fade">
+              <style>
+                {`
+                  @keyframes scroll-x {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(calc(-50% - 8px)); }
+                  }
+                  .carousel-track {
+                    display: flex;
+                    gap: 16px;
+                    width: max-content;
+                    animation: scroll-x 20s linear infinite;
+                  }
+                  .carousel-track:hover {
+                    animation-play-state: paused;
+                  }
+                  .mask-image-fade {
+                    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+                    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+                  }
+                `}
+              </style>
+              <div className="carousel-track">
+                {/* Double the images for infinite smooth looping effect */}
+                {[...IMAGE_TESTIMONIALS, ...IMAGE_TESTIMONIALS].map((img, idx) => (
                   <img 
-                    src={testimonial.avatar} 
-                    alt={testimonial.name} 
-                    className="w-10 h-10 rounded-full object-cover" 
+                    key={idx}
+                    src={img} 
+                    alt={`Depoimento ${idx + 1}`} 
+                    className="w-[220px] sm:w-[280px] h-auto object-contain rounded-xl opacity-90 transition-opacity hover:opacity-100 border border-white/5" 
                     referrerPolicy="no-referrer"
                     loading="lazy"
                     decoding="async"
                   />
-                  <div>
-                    <div className="font-bold text-[14px] text-accent">{testimonial.name}</div>
-                  </div>
-                </div>
-                <p className="text-[14px] text-text leading-[1.5] italic">
-                  "{testimonial.text}"
-                </p>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
 
           {/* Offer / Purchase Section */}

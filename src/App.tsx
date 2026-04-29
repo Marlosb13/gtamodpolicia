@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ShieldCheck, Star, Smartphone, CheckCircle2, Zap, AlertOctagon, ChevronDown } from 'lucide-react';
+import { ShieldCheck, Star, Smartphone, CheckCircle2, Zap, AlertOctagon, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const IMAGE_TESTIMONIALS = [
@@ -8,6 +8,63 @@ const IMAGE_TESTIMONIALS = [
   "https://i.postimg.cc/4dZB3f39/Whats-App-Image-2026-04-28-at-20-49-54.jpg",
   "https://i.postimg.cc/gkBSKbgt/Whats-App-Image-2026-04-28-at-20-49-53.jpg"
 ];
+
+const TestimonialsSlider = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % IMAGE_TESTIMONIALS.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + IMAGE_TESTIMONIALS.length) % IMAGE_TESTIMONIALS.length);
+  };
+
+  return (
+    <div className="w-full relative flex items-center justify-center mb-10 overflow-hidden">
+      <div className="w-full max-w-[800px] flex flex-col items-center relative">
+        <h2 className="font-display text-4xl uppercase text-center text-text mb-6">O Que a Galera Tá Falando</h2>
+        
+        <div className="relative flex items-center justify-center w-full px-12 sm:px-16">
+          <button 
+            onClick={prevSlide}
+            className="absolute left-0 z-10 bg-[#1a1b23] border border-white/10 hover:bg-white/10 text-white p-3 rounded-full transition-all shadow-xl"
+            aria-label="Anterior"
+          >
+            <ChevronLeft size={24} />
+          </button>
+
+          <div className="w-[70%] max-w-[560px] overflow-hidden rounded-xl border border-white/5 relative">
+            <div 
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {IMAGE_TESTIMONIALS.map((img, idx) => (
+                <img 
+                  key={idx}
+                  src={img} 
+                  alt={`Depoimento ${idx + 1}`} 
+                  className="w-full shrink-0 h-auto object-contain" 
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ))}
+            </div>
+          </div>
+
+          <button 
+            onClick={nextSlide}
+            className="absolute right-0 z-10 bg-[#1a1b23] border border-white/10 hover:bg-white/10 text-white p-3 rounded-full transition-all shadow-xl"
+            aria-label="Próximo"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const BRAZILIAN_NAMES = [
   "Lucas", "Gabriel", "Matheus", "Felipe", "Guilherme", "Pedro", "João", "Gustavo", 
@@ -302,42 +359,7 @@ export default function App() {
           </div>
 
           {/* Testimonials */}
-          <div className="w-full max-w-[800px] mx-auto flex flex-col items-center mb-10 overflow-hidden">
-            <h2 className="font-display text-4xl uppercase text-center text-text mb-6">O Que a Galera Tá Falando</h2>
-            <div className="w-full relative">
-              <style>
-                {`
-                  @keyframes scroll-x {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(calc(-50% - 8px)); }
-                  }
-                  .carousel-track {
-                    display: flex;
-                    gap: 16px;
-                    width: max-content;
-                    animation: scroll-x 20s linear infinite;
-                  }
-                  .carousel-track:hover {
-                    animation-play-state: paused;
-                  }
-                `}
-              </style>
-              <div className="carousel-track">
-                {/* Double the images for infinite smooth looping effect */}
-                {[...IMAGE_TESTIMONIALS, ...IMAGE_TESTIMONIALS].map((img, idx) => (
-                  <img 
-                    key={idx}
-                    src={img} 
-                    alt={`Depoimento ${idx + 1}`} 
-                    className="w-[70vw] md:w-[560px] h-auto object-contain rounded-xl border border-white/5" 
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
+          <TestimonialsSlider />
 
           {/* Offer / Purchase Section */}
           <section id="oferta" className="mt-8 mb-16">

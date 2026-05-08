@@ -290,6 +290,7 @@ const VSLPlayer = () => {
           src="https://i.imgur.com/hGX6apC.mp4"
           className="w-full h-auto max-h-[80vh] object-contain cursor-pointer block"
           preload="auto"
+          fetchPriority="high"
           muted={isMuted}
           onCanPlayThrough={handleCanPlayThrough}
           onTimeUpdate={handleTimeUpdate}

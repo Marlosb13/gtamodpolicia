@@ -157,97 +157,250 @@ const SalesNotification = () => {
 
 const VSLPlayer = () => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
-  const [showOverlay, setShowOverlay] = React.useState(true);
-  const [isPaused, setIsPaused] = React.useState(false);
-  const [progress, setProgress] = React.useState(0);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [showInitial, setShowInitial] = React.useState(true);
+  const [isMuted, setIsMuted] = React.useState(false);
+  const [currentTime, setCurrentTime] = React.useState(0);
+  const [duration, setDuration] = React.useState(0);
+  const [bufferProgress, setBufferProgress] = React.useState(0);
+  const [showControls, setShowControls] = React.useState(false);
+  const [loadingBarProgress, setLoadingBarProgress] = React.useState(0);
+  const [loadingBarVisible, setLoadingBarVisible] = React.useState(true);
 
-  const handlePrimeiroClique = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = false;
-    videoRef.current.currentTime = 0;
-    videoRef.current.play().catch(e => console.log('Autoplay prevented'));
-    setShowOverlay(false);
-    setIsPaused(false);
+  React.useEffect(() => {
+    // Fake fast loading
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 15;
+      if (progress > 85) progress = 85;
+      setLoadingBarProgress(progress);
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleCanPlayThrough = () => {
+    setLoadingBarProgress(100);
+    setTimeout(() => {
+      setLoadingBarVisible(false);
+    }, 300);
   };
 
-  const togglePlay = () => {
-    if (!videoRef.current || showOverlay) return;
+  const handlePlayClick = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.play();
+      setIsPlaying(true);
+      setShowInitial(false);
+    }
+  };
+
+  const togglePlayPause = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (!videoRef.current) return;
     if (videoRef.current.paused) {
       videoRef.current.play();
-      setIsPaused(false);
+      setIsPlaying(true);
     } else {
       videoRef.current.pause();
-      setIsPaused(true);
+      setIsPlaying(false);
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    videoRef.current.muted = !videoRef.current.muted;
+    setIsMuted(videoRef.current.muted);
+  };
+
+  const toggleFullscreen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!containerRef.current) return;
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      containerRef.current.requestFullscreen();
     }
   };
 
   const handleTimeUpdate = () => {
-    if (videoRef.current && videoRef.current.duration) {
-      const curvatura = 0.5;
-      let progressoLogico = Math.pow((videoRef.current.currentTime / videoRef.current.duration), curvatura) * 100;
-      if (progressoLogico > 100) progressoLogico = 100;
-      setProgress(progressoLogico);
+    if (!videoRef.current) return;
+    setCurrentTime(videoRef.current.currentTime);
+  };
+
+  const handleLoadedMetadata = () => {
+    if (!videoRef.current) return;
+    setDuration(videoRef.current.duration);
+  };
+
+  const handleProgress = () => {
+    if (!videoRef.current) return;
+    const { buffered, duration } = videoRef.current;
+    if (buffered.length > 0) {
+      setBufferProgress((buffered.end(buffered.length - 1) / duration) * 100);
     }
   };
 
   const handleEnded = () => {
-    setIsPaused(false);
-    setProgress(100);
+    setIsPlaying(false);
+    setShowInitial(true);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pos = (e.clientX - rect.left) / rect.width;
+    videoRef.current.currentTime = pos * duration;
+  };
+
+  const formatTime = (time: number) => {
+    if (isNaN(time)) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
   return (
-    <div style={{ position: 'relative', width: '100%', maxWidth: '800px', margin: '20px auto 48px auto', background: '#000', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 15px 35px rgba(0,0,0,0.5)', fontFamily: 'sans-serif' }}>
-      <style>
-        {`
-          @keyframes vortex-pulse-blue {
-              0% { transform: scale(1); opacity: 0.8; }
-              50% { transform: scale(1.1); opacity: 0.4; }
-              100% { transform: scale(1); opacity: 0.8; }
-          }
-          .vortex-pulse-button { animation: vortex-pulse-blue 2s infinite ease-in-out; }
-        `}
-      </style>
-
-      <video 
-        ref={videoRef}
-        autoPlay 
-        muted 
-        playsInline 
-        onClick={togglePlay}
-        onTimeUpdate={handleTimeUpdate}
-        onEnded={handleEnded}
-        style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer' }}
+    <div className="w-full max-w-[720px] mx-auto flex flex-col items-center mb-10">
+      <div 
+        ref={containerRef}
+        className="relative w-full bg-black rounded-[8px] overflow-hidden group shadow-2xl flex items-center justify-center"
+        onMouseEnter={() => setShowControls(true)}
+        onMouseLeave={() => setShowControls(false)}
       >
-        <source src="https://ukctgxsxommqbpureavm.supabase.co/storage/v1/object/public/GTA%2001/Ssstik.Io%201776520456530%20(Online-Video-Cutter.Com).mp4" type="video/mp4" />
-      </video>
-
-      {showOverlay && (
-        <div onClick={handlePrimeiroClique} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 30 }}>
-          <div style={{ background: '#1e40af', color: 'white', padding: '15px 25px', borderRadius: '50px', fontWeight: 'bold', fontSize: '16px', boxShadow: '0 4px 15px rgba(30,64,175,0.5)' }}>
-            🔊 CLIQUE PARA OUVIR
+        {/* Fake Loading Bar */}
+        {loadingBarVisible && (
+          <div className="absolute bottom-0 left-0 w-full h-[6px] z-50">
+            <div 
+              className="h-full bg-[#22c35d]"
+              style={{ width: `${loadingBarProgress}%`, transition: 'width 0.1s ease-out' }}
+            />
           </div>
-        </div>
-      )}
+        )}
 
-      {isPaused && !showOverlay && (
-        <div onClick={togglePlay} style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', pointerEvents: 'none', zIndex: 20 }}>
-          <div className="vortex-pulse-button" style={{ width: '80px', height: '80px', background: 'rgba(30,64,175,0.4)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ width: 0, height: 0, borderTop: '15px solid transparent', borderBottom: '15px solid transparent', borderLeft: '25px solid white', marginLeft: '5px' }}></div>
+        <video
+          ref={videoRef}
+          src="https://i.imgur.com/hGX6apC.mp4"
+          className="w-full h-auto max-h-[80vh] object-contain cursor-pointer block"
+          preload="auto"
+          muted={isMuted}
+          onCanPlayThrough={handleCanPlayThrough}
+          onTimeUpdate={handleTimeUpdate}
+          onLoadedMetadata={handleLoadedMetadata}
+          onProgress={handleProgress}
+          onEnded={handleEnded}
+          onClick={() => {
+            if (!showInitial) togglePlayPause();
+          }}
+          playsInline
+        />
+
+        {/* Initial Screen */}
+        {showInitial && (
+          <div 
+            className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center cursor-pointer z-40 transition-opacity duration-300"
+            onClick={handlePlayClick}
+          >
+            <style>
+              {`
+                @keyframes pulse-green {
+                  0% { box-shadow: 0 0 0 0 rgba(34, 195, 93, 0.7); }
+                  70% { box-shadow: 0 0 0 20px rgba(34, 195, 93, 0); }
+                  100% { box-shadow: 0 0 0 0 rgba(34, 195, 93, 0); }
+                }
+                .pulse-green-btn {
+                  animation: pulse-green 2s infinite;
+                }
+              `}
+            </style>
+            <div className="pulse-green-btn w-[80px] h-[80px] bg-[#22c35d] rounded-full flex items-center justify-center mb-4 transition-transform hover:scale-110">
+              <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[24px] border-l-white border-b-[15px] border-b-transparent ml-2"></div>
+            </div>
+            <p className="text-[#e2e8f0] text-[15px] font-medium tracking-wide mt-2">
+              ▶ Clique para assistir
+            </p>
           </div>
-        </div>
-      )}
+        )}
 
-      <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '12px', background: 'rgba(255,255,255,0.2)', zIndex: 25 }}>
-        <div style={{ width: `${progress}%`, height: '100%', background: '#1e40af', transition: 'width 0.1s linear' }}></div>
+        {/* Video Controls */}
+        {!showInitial && (
+          <div 
+            className={`absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent pt-12 pb-2 px-3 z-30 transition-opacity duration-300 ${showControls || !isPlaying ? 'opacity-100' : 'opacity-0'}`}
+          >
+            {/* Progress Bar Container */}
+            <div 
+              className="relative w-full h-1.5 bg-white/20 rounded-full cursor-pointer mb-3 group/progress"
+              onClick={handleProgressClick}
+            >
+              {/* Buffer Bar */}
+              <div 
+                className="absolute top-0 left-0 h-full bg-white/40 rounded-full"
+                style={{ width: `${bufferProgress}%` }}
+              ></div>
+              {/* Main Progress Bar */}
+              <div 
+                className="absolute top-0 left-0 h-full bg-[#22c35d] rounded-full transition-all group-hover/progress:h-2 group-hover/progress:-translate-y-[1px]"
+                style={{ width: `${(currentTime / duration) * 100}%` }}
+              ></div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <button onClick={togglePlayPause} className="text-white hover:text-[#22c35d] transition-colors focus:outline-none shrink-0">
+                  {isPlaying ? (
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  )}
+                </button>
+
+                <div className="text-white/90 text-[13px] font-medium tracking-wide font-mono shrink-0">
+                  {formatTime(currentTime)} / {formatTime(duration)}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button onClick={toggleMute} className="text-white hover:text-[#22c35d] transition-colors focus:outline-none shrink-0">
+                  {isMuted ? (
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                      <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                    </svg>
+                  )}
+                </button>
+
+                <button onClick={toggleFullscreen} className="text-white hover:text-[#22c35d] transition-colors focus:outline-none shrink-0">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default function App() {
-  const [basicCheckoutUrl, setBasicCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj');
-  const [upsellCheckoutUrl, setUpsellCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/0Eii7a4F0EBYa5Ve9MtF');
-  const [downsellCheckoutUrl, setDownsellCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/0SY9xaashgMSGX10QkZd');
+  const [basicCheckoutUrl, setBasicCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/R2rweCFZzle5GyqhWkgr');
+  const [upsellCheckoutUrl, setUpsellCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/mTQrG6XshF6tiDWDwL9H');
+  const [downsellCheckoutUrl, setDownsellCheckoutUrl] = React.useState('https://pagamento.checkoutseguro.shop/checkout/v5/grVbl1ajRWEhmhpwh570');
   const [showUpsell, setShowUpsell] = React.useState(false);
   const [showDownsell, setShowDownsell] = React.useState(false);
 
@@ -255,9 +408,9 @@ export default function App() {
     // Preserve URL parameters for UTM tracking
     const searchParams = window.location.search;
     if (searchParams) {
-      setBasicCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/cfxh6NX1ZDvew29hIBTj${searchParams}`);
-      setUpsellCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/0Eii7a4F0EBYa5Ve9MtF${searchParams}`);
-      setDownsellCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/0SY9xaashgMSGX10QkZd${searchParams}`);
+      setBasicCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/R2rweCFZzle5GyqhWkgr${searchParams}`);
+      setUpsellCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/mTQrG6XshF6tiDWDwL9H${searchParams}`);
+      setDownsellCheckoutUrl(`https://pagamento.checkoutseguro.shop/checkout/v5/grVbl1ajRWEhmhpwh570${searchParams}`);
     }
   }, []);
 
